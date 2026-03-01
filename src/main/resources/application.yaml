@@ -1,3 +1,25 @@
 spring:
   application:
     name: thoth
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: thoth-message-consumers
+      auto-offset-reset: latest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        max.poll.interval.ms: 30000
+        max.poll.records: 3
+
+    listener:
+      ack-mode: manual
+
+thoth:
+  kafka:
+    topics:
+      message:
+        name: message
+        group-id: thoth-message-consumers
+        concurrency: 5
