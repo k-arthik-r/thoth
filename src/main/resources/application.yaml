@@ -22,4 +22,4 @@ thoth:
       message:
         name: message
         group-id: thoth-message-consumers
-        concurrency: 5
+        concurrency: 3
