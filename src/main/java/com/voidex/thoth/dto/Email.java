@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.extern.jackson.Jacksonized;
 
 import java.util.List;
@@ -17,6 +18,11 @@ import java.util.List;
 @AllArgsConstructor
 
 public class Email {
+
+    @NonNull
+    @JsonProperty
+    private String id;
+
     @JsonProperty
     private String[] recipient;
 

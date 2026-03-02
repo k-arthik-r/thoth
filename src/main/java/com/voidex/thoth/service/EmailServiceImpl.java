@@ -31,7 +31,7 @@ public class EmailServiceImpl implements EmailService{
 
 
     @Override
-    public void createAndSendEmail(Email email) throws ThothException, MessagingException {
+    public MimeMessage createEmail(Email email) throws ThothException, MessagingException {
 
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true);
@@ -53,8 +53,7 @@ public class EmailServiceImpl implements EmailService{
             addAttachments(messageHelper, email.getAttachments());
         }
 
-        sendEmail(mimeMessage);
-
+        return mimeMessage;
     }
 
     private void addAttachments(MimeMessageHelper messageHelper, List<Attachment> attachments) throws ThothException {
@@ -75,7 +74,7 @@ public class EmailServiceImpl implements EmailService{
         }
     }
 
-    private void sendEmail(MimeMessage mailMessage) throws ThothException {
+    public void sendEmail(MimeMessage mailMessage) throws ThothException {
         try {
             javaMailSender.send(mailMessage);
             LOG.info("Email sent successfully to recipients.");
