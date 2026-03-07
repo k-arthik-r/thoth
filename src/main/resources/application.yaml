@@ -12,9 +12,19 @@ spring:
       properties:
         max.poll.interval.ms: 30000
         max.poll.records: 3
-
     listener:
       ack-mode: manual
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: <gmail>
+    password: <google app password>
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 thoth:
   kafka:
