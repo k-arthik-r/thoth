@@ -77,7 +77,7 @@ public class EmailServiceImpl implements EmailService{
     public void sendEmail(MimeMessage mailMessage) throws ThothException {
         try {
             javaMailSender.send(mailMessage);
-            LOG.info("Email sent successfully to recipients.");
+            LOG.info("Email sent successfully");
         } catch (Exception e) {
             LOG.error("SMTP server error while sending email", e);
             throw new ThothException("Failed to send email via SMTP", e);

@@ -6,6 +6,8 @@ import com.voidex.thoth.exception.ThothException;
 import jakarta.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +17,7 @@ import static com.voidex.thoth.utils.ThothConstants.VALID;
 import static com.voidex.thoth.utils.ThothConstants.IN_VALID;
 import static com.voidex.thoth.utils.ThothConstants.ZERO;
 
+@Component
 public class EmailNotificationCollector {
 
     private final EmailValidationService emailValidationService;
@@ -27,7 +30,8 @@ public class EmailNotificationCollector {
         this.emailService = emailService;
     }
 
-    public void processEmailNotification(Email email) {
+    @Async
+    public void processEmailNotification(Email email){
         try {
 
             if (email.getRecipient() == null) {
@@ -59,8 +63,6 @@ public class EmailNotificationCollector {
             MimeMessage mimeMessage = emailService.createEmail(processedEmail);
             emailService.sendEmail(mimeMessage);
 
-        } catch (ThothException e) {
-            LOG.warn("Terminating process: {}", e.getMessage());
         } catch (Exception e) {
             LOG.error("Unexpected error processing email ID: {}", email.getId(), e);
         }

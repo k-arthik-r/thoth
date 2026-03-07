@@ -1,3 +1,6 @@
+server:
+  port: 9090
+
 spring:
   application:
     name: thoth
@@ -17,8 +20,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: <gmail>
-    password: <google app password>
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
