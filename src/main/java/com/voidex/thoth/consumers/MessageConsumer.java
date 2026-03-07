@@ -29,13 +29,16 @@ public class MessageConsumer {
     public void listenMessage(ConsumerRecord<String, String> topicMessage, Acknowledgment acknowledgment){
         try{
             LOG.info("Processing incoming email notification: {}", topicMessage.toString());
-
             Email email = mapper.readValue(topicMessage.value(), Email.class);
-
             emailNotificationCollector.processEmailNotification(email);
+        } catch (Exception e){
+            LOG.error("Failed to process incoming email notification: {}", topicMessage.toString());
+
+            //TODO: Have a Fallback handler
 
         } finally{
             acknowledgment.acknowledge();
+            LOG.info("Acknowledged incoming email notification");
         }
     }
 }

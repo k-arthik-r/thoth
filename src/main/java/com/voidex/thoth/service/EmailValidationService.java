@@ -7,10 +7,15 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.List;
 import java.util.function.Predicate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static com.voidex.thoth.utils.ThothConstants.*;
+import static com.voidex.thoth.utils.ThothConstants.EMAIL_REGEX;
+import static com.voidex.thoth.utils.ThothConstants.VALID;
+import static com.voidex.thoth.utils.ThothConstants.IN_VALID;
 
 public class EmailValidationService {
 
@@ -19,9 +24,12 @@ public class EmailValidationService {
     public static final Predicate<String> IS_VALID_EMAIL = email ->
             email != null && EMAIL_PATTERN.matcher(email).matches();
 
+    public static final Logger LOG = LoggerFactory.getLogger(EmailValidationService.class);
+
 
     public Map<String, String[]> validateEmails(String[] emails) {
         if (emails == null) {
+            LOG.warn("Email list is empty");
             return Collections.emptyMap();
         }
 
