@@ -23,5 +23,5 @@ public class Attachment {
     private byte[] content;
 
     @JsonProperty
-    private String ContentType;
+    private String contentType;
 }

@@ -41,6 +41,7 @@ public class EmailNotificationCollector {
             }
 
             if (!hasValidAttachments(email.getAttachments())) {
+                LOG.warn("Email attachments is invalid. Dropping notification: {}", email.getId());
                 return;
             }
 
